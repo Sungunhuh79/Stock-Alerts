@@ -15,7 +15,7 @@ EMAIL_PASS     = os.environ["EMAIL_APP_PASSWORD"]
 SLACK_WEBHOOK  = os.environ.get("SLACK_WEBHOOK_URL", "")
 
 # YOUR WATCHLIST — change these tickers to whatever stocks you want!
-WATCHLIST = ["AAPL", "NVDA", "TSLA", "MSFT", "AMZN"]
+WATCHLIST = ["PLTR", "AVGO", "TSLA", "MSFT", "TSM" "META", "AMZN"]
 
 def research_ticker(ticker, tech):
     client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)

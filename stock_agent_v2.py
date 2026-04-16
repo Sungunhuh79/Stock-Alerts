@@ -15,7 +15,7 @@ EMAIL_PASS     = os.environ["EMAIL_APP_PASSWORD"]
 SLACK_WEBHOOK  = os.environ.get("SLACK_WEBHOOK_URL", "")
 
 # YOUR WATCHLIST — change these tickers to whatever stocks you want!
-WATCHLIST = ["PLTR", "AVGO", "TSLA", "MSFT", "TSM" "META", "AMZN"]
+WATCHLIST = ["TSLA", "AVGO"]
 
 def research_ticker(ticker, tech):
     client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
@@ -37,7 +37,7 @@ def research_ticker(ticker, tech):
         f"\"news\":[\"...\"],\"overall\":\"BULLISH|BEARISH|NEUTRAL\"}}"
     )
     res = client.messages.create(
-        model="claude-sonnet-4-5", max_tokens=800,
+        model="claude-sonnet-4-5", max_tokens=400,
         tools=[{"type": "web_search_20250305", "name": "web_search"}],
         messages=[{"role": "user", "content": prompt}]
     )

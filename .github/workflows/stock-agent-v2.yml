@@ -1,0 +1,31 @@
+name: Stock Alert Agent
+
+on:
+  schedule:
+    - cron: '0 13 * * 1-5'
+    - cron: '30 20 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install anthropic yfinance numpy twilio requests
+
+      - name: Run stock agent
+        env:
+          ANTHROPIC_API_KEY:   ${{ secrets.ANTHROPIC_API_KEY }}
+          TWILIO_ACCOUNT_SID:  ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN:   ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_PHONE:        ${{ secrets.TWILIO_PHONE }}
+          YOUR_PHONE:          ${{ secrets.YOUR_PHONE }}
+          YOUR_EMAIL:          ${{ secrets.YOUR_EMAIL }}
+          EMAIL_APP_PASSWORD:  ${{ secrets.EMAIL_APP_PASSWORD }}
+        run: python stock_agent_v2.py
